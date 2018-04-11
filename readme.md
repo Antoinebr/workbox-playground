@@ -16,7 +16,7 @@ To serve ( http://localhost:3000/article/42 )
 
 ### Challenge 
 
-How can I catch when an article request is not in the article cache ( http://localhost:3000/article/990 ) and serve an offline page as a fallbask ? 
+How can I catch when an article request is not in the article cache ( http://localhost:3000/article/990 ) and serve an offline page as a fallback ? 
 
 
 

@@ -9,7 +9,7 @@ To build the serviceworker
 
 ``` npm run build```
 
-To serve ( http://localhost:3000/article/ )
+To serve ( http://localhost:3000/article/42 )
 
 ``` npm start ```
 
@@ -23,7 +23,7 @@ How can I catch when an article request is not in the article cache ( http://loc
 
 ```JavaScript 
 
-// see workboc-config.js 
+// see workbox-config.js 
 
 {
     urlPattern: new RegExp('/article/'),

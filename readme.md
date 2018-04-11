@@ -19,6 +19,12 @@ To serve ( http://localhost:3000/article/42 )
 How can I catch when an article request is not in the article cache ( http://localhost:3000/article/990 ) and serve an offline page as a fallback ? 
 
 
+To reproduce the challenge : 
+
+1)  visit http://localhost:3000/article/42
+2)  Stop the server 
+2)  visit http://localhost:3000/article/43 ( this will fail because this page is not in the cache ) ( But how can I serve a fallback page ? )
+
 
 
 ```JavaScript 

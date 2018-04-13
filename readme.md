@@ -28,9 +28,6 @@ var networkFirstHandler = workbox.strategies.networkFirst({
       statuses: [200]
     }),
 
-
-  ]
-
 });
 
 

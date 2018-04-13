@@ -15,6 +15,12 @@ app.get('/', function(req, res, next) {
     res.render('index', { title: 'Cool, huh!', date : new Date() });
 });
 
+
+app.get('/offline/', function(req, res, next) {
+    res.render('offline', { title: 'Offline !', date : new Date() });
+});
+
+
 app.get('/article/:id', function(req , res){
     res.render('articles', { title: `Articles ${req.params.id}`, date : new Date() });
 });

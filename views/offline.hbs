@@ -1,0 +1,81 @@
+<h1>{{ title }}</h1>
+
+<p> Refreshed : {{date}}</p>
+
+
+<ul></ul>
+
+<script>
+
+    
+    /**
+    * List the caches names
+    * @returns {promise} cache names
+    */
+    const listCaches = () => {
+
+        return new Promise( (resolve, reject) => {  
+            
+            caches.keys().then(function(cacheNames) {
+        
+                if( cacheNames.length === 0 ) return reject("no caches");
+        
+                return resolve(cacheNames);
+        
+            });
+            
+        }) 
+    
+    }
+    
+    
+    /**
+    * 
+    * Get the requests saved ina given cache
+    * @param {string} cacheName 
+    * @returns {promise} keylist
+    */
+    const getCachedRequest = cacheName => {
+    
+    return new Promise( (resolve, reject) => {  
+    
+        caches.open(cacheName).then(function(cache) {
+            
+            if( cache.length === 0 ) return reject(`no requests in ${cacheName} `);
+    
+            cache.keys().then( keyList => {
+            
+            return resolve(keyList);
+            
+            });
+    
+        });  
+    
+    })
+    
+    }
+    
+    const getRequestsFromCache = cacheName => {
+    
+    return new Promise( (resolve, reject) => {  
+    
+        listCaches()
+        .then(caches =>{
+            return getCachedRequest( caches.filter(cache => cache === cacheName ) );
+        })
+        .then( requests => resolve(requests) )
+        .catch( error => reject(error) );
+    
+    })
+    
+    }
+    
+    
+    const offlinePageList = document.querySelector('ul');
+
+
+    getRequestsFromCache('articles-antoine')
+    .then( requests => requests.forEach( request => offlinePageList.innerHTML += `<li>${request.url}</li>` ) );
+    
+
+</script>

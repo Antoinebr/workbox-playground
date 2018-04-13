@@ -25,10 +25,36 @@ self.__precacheManifest = [
   {
     "url": "./stylesheets/style.css",
     "revision": "e3481c9a53ba1997f7b694727888067d"
+  },
+  {
+    "url": "./offline/",
+    "revision": "e3481c9a53ba1997sqs94727888067d"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.routing.registerRoute(/(https:\/\/fonts.googleapis.com)/, workbox.strategies.staleWhileRevalidate(), 'GET');
-workbox.routing.registerRoute(/\/article\//, workbox.strategies.networkFirst({ cacheName: "articles", plugins: [new workbox.expiration.Plugin({"maxEntries":30})] }), 'GET');
+
+
+var networkFirstHandler = workbox.strategies.networkFirst({
+  cacheName: 'articles-antoine',
+  plugins: [
+    new workbox.expiration.Plugin({
+      maxEntries: 30
+    }),
+    new workbox.cacheableResponse.Plugin({
+      statuses: [200]
+    }),
+
+
+  ]
+
+});
+
+
+
+const handler = (args) => networkFirstHandler.handle(args).then((response) => (!response) ? caches.match('/offline/') : response);
+
+workbox.routing.registerRoute(/\/article\//, handler);
+
